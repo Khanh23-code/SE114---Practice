@@ -59,6 +59,11 @@ public class Login extends AppCompatActivity {
                 String loginEmail = etEmail.getText().toString().trim();
                 String loginPassword = etPassword.getText().toString().trim();
 
+                if (loginEmail.isEmpty() || loginPassword.isEmpty()) {
+                    Toast.makeText(Login.this, "Please fill all information!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 if (loginEmail.equals(registeredEmail) && loginPassword.equals(registeredPassword)) {
                     Intent intent = new Intent(Login.this, Profile.class);
                     intent.putExtra("KEY_NAME", registeredName);

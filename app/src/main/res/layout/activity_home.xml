@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".HomeActivity">
+    tools:context=".Home">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layoutPostInput"
@@ -42,8 +42,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        android:divider="@null"
-        android:dividerHeight="0dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="16dp"
         android:scrollbars="none"
         app:layout_constraintTop_toBottomOf="@id/layoutPostInput"
         app:layout_constraintBottom_toBottomOf="parent"

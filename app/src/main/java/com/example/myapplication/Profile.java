@@ -24,6 +24,8 @@ public class Profile extends AppCompatActivity {
     private ImageView imageView;
     private EditText etUrl;
     private Button btnSave;
+    private Button btnLogout;
+    private Button btnHome;
     private EditText etName;
     private EditText etEmail;
 
@@ -44,6 +46,8 @@ public class Profile extends AppCompatActivity {
         imageView = findViewById(R.id.imgUser);
         etUrl = findViewById(R.id.etAvatarURL);
         btnSave = findViewById(R.id.btnSave);
+        btnLogout = findViewById(R.id.btnLogout);
+        btnHome = findViewById(R.id.btnHome);
         etName = findViewById(R.id.etName);
         etEmail = findViewById(R.id.etEmail);
 
@@ -63,6 +67,25 @@ public class Profile extends AppCompatActivity {
                     loadAvatar(inputUrl);
                     Toast.makeText(Profile.this, "Updating user avatar...", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Profile.this, Register.class);
+                startActivity(intent);
+            }
+        });
+
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Profile.this, Home.class);
+                intent.putExtra("KEY_NAME", userName);
+                String url = etUrl.getText().toString().trim().isEmpty() ? DEFAULT_AVATAR : etUrl.getText().toString().trim();
+                intent.putExtra("KEY_AVATAR_URL",url);
+                startActivity(intent);
             }
         });
     }
