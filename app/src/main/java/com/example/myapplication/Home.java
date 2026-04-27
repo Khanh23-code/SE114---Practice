@@ -26,13 +26,15 @@ public class Home extends AppCompatActivity {
     private Button btnPost;
     private ListView lvPosts;
 
-    private List<Post> postList;
+    public static List<Post> globalPostList = new ArrayList<>();
+
     private PostAdapter postAdapter;
 
     private String userName;
     private String avatarUrl;
 
     private boolean isSortedByDateAscending = false;
+    private boolean isSortedByAuthorAscending = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +54,8 @@ public class Home extends AppCompatActivity {
             avatarUrl = profileIntent.getStringExtra("KEY_AVATAR_URL");
         }
 
-        postList = new ArrayList<>();
-        postAdapter = new PostAdapter(this, postList);
+        postAdapter = new PostAdapter(this, globalPostList);
         lvPosts.setAdapter(postAdapter);
-
-        postList.add(new Post("System", "24/03/2026", "Welcome to the Home Page!", avatarUrl));
         postAdapter.notifyDataSetChanged();
 
         btnPost.setOnClickListener(new View.OnClickListener() {
@@ -69,10 +68,10 @@ public class Home extends AppCompatActivity {
                     return;
                 }
 
-                String currentDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
+                String currentDateTime = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault()).format(new Date());
 
-                Post newPost = new Post(userName, currentDate, content, avatarUrl);
-                postList.add(0, newPost);
+                Post newPost = new Post(userName, currentDateTime, content, avatarUrl);
+                globalPostList.add(0, newPost);
                 postAdapter.notifyDataSetChanged();
                 etPostContent.setText("");
 
@@ -104,8 +103,8 @@ public class Home extends AppCompatActivity {
         } else if (id == R.id.sortByDate) {
             isSortedByDateAscending = !isSortedByDateAscending;
 
-            Collections.sort(postList, new Comparator<Post>() {
-                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            Collections.sort(globalPostList, new Comparator<Post>() {
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault());
 
                 @Override
                 public int compare(Post p1, Post p2) {
@@ -130,6 +129,21 @@ public class Home extends AppCompatActivity {
             return true;
 
         } else if (id == R.id.sortByAuthor) {
+            isSortedByAuthorAscending = !isSortedByAuthorAscending;
+
+            Collections.sort(globalPostList, new Comparator<Post>() {
+                @Override
+                public int compare(Post p1, Post p2) {
+                    if (isSortedByAuthorAscending) {
+                        return p1.getUserName().compareToIgnoreCase(p2.getUserName());
+                    } else {
+                        return p2.getUserName().compareToIgnoreCase(p1.getUserName());
+                    }
+                }
+            });
+
+            postAdapter.notifyDataSetChanged();
+
             return true;
         }
 

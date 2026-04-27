@@ -15,7 +15,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.myapplication.Model.User;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Login extends AppCompatActivity {
+
+    public static List<User> userList = new ArrayList<>();
 
     private EditText etEmail;
     private EditText etPassword;
@@ -64,15 +71,22 @@ public class Login extends AppCompatActivity {
                     return;
                 }
 
-                if (loginEmail.equals(registeredEmail) && loginPassword.equals(registeredPassword)) {
+                User authenticatedUser = null;
+                for (User u : userList) {
+                    if (u.getEmail().equals(loginEmail) && u.getPassword().equals(loginPassword)) {
+                        authenticatedUser = u;
+                        break;
+                    }
+                }
+
+                if (authenticatedUser != null) {
                     Intent intent = new Intent(Login.this, Profile.class);
-                    intent.putExtra("KEY_NAME", registeredName);
-                    intent.putExtra("KEY_EMAIL", registeredEmail);
-                    intent.putExtra("KEY_PASSWORD", registeredPassword);
+                    intent.putExtra("KEY_NAME", authenticatedUser.getName());
+                    intent.putExtra("KEY_EMAIL", authenticatedUser.getEmail());
+
                     Toast.makeText(Login.this, "Login successfully!", Toast.LENGTH_SHORT).show();
                     startActivity(intent);
-                }
-                else {
+                } else {
                     Toast.makeText(Login.this, "Your email or password is wrong!", Toast.LENGTH_SHORT).show();
                 }
             }

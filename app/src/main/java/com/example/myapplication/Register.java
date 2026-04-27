@@ -14,13 +14,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.myapplication.Model.User;
+
 public class Register extends AppCompatActivity {
 
     private EditText etName;
     private EditText etEmail;
     private EditText etPassword;
     private EditText etConfirmPassword;
-    private TextView tvLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,7 @@ public class Register extends AppCompatActivity {
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
-        tvLogin = findViewById(R.id.linkLogin);
+        TextView tvLogin = findViewById(R.id.linkLogin);
 
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,14 +58,14 @@ public class Register extends AppCompatActivity {
                     return;
                 }
 
-                Intent intent = new Intent(Register.this, Login.class);
-
-                intent.putExtra("KEY_NAME", name);
-                intent.putExtra("KEY_EMAIL", email);
-                intent.putExtra("KEY_PASSWORD", password);
+                User newUser = new User(name, email, password);
+                Login.userList.add(newUser);
 
                 Toast.makeText(Register.this, "Create account successfully!", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(Register.this, Login.class);
                 startActivity(intent);
+                finish();
             }
         });
 

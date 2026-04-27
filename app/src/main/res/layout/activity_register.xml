@@ -120,8 +120,7 @@
                 android:layout_marginTop="32dp"
                 android:layout_marginBottom="24dp"
                 app:cornerRadius="12dp"
-                app:layout_constraintTop_toBottomOf="@id/layoutConfirmPassword"
-                app:layout_constraintBottom_toTopOf="linkLogin" />
+                app:layout_constraintTop_toBottomOf="@id/layoutConfirmPassword"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
