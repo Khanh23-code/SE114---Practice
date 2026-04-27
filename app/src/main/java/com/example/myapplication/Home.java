@@ -9,9 +9,6 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -20,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Home extends AppCompatActivity {
 
@@ -33,11 +32,15 @@ public class Home extends AppCompatActivity {
     private String userName;
     private String avatarUrl;
 
+    private boolean isSortedByDateAscending = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home);
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         etPostContent = findViewById(R.id.etPostContent);
         btnPost = findViewById(R.id.btnPost);
@@ -77,5 +80,59 @@ public class Home extends AppCompatActivity {
                 Toast.makeText(Home.this, "Posted successfully!", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+        getMenuInflater().inflate(R.menu.home_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@androidx.annotation.NonNull android.view.MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.profile) {
+            Intent intent = new Intent(Home.this, Profile.class);
+
+            intent.putExtra("KEY_NAME", userName);
+            intent.putExtra("KEY_AVATAR_URL", avatarUrl);
+
+            startActivity(intent);
+            return true;
+
+        } else if (id == R.id.sortByDate) {
+            isSortedByDateAscending = !isSortedByDateAscending;
+
+            Collections.sort(postList, new Comparator<Post>() {
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+                @Override
+                public int compare(Post p1, Post p2) {
+                    try {
+                        Date date1 = format.parse(p1.getDate());
+                        Date date2 = format.parse(p2.getDate());
+
+                        if (isSortedByDateAscending) {
+                            return date1.compareTo(date2);
+                        } else {
+                            return date2.compareTo(date1);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return 0;
+                    }
+                }
+            });
+
+            postAdapter.notifyDataSetChanged();
+
+            return true;
+
+        } else if (id == R.id.sortByAuthor) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

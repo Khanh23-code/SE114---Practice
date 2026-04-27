@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -19,6 +20,7 @@ public class Register extends AppCompatActivity {
     private EditText etEmail;
     private EditText etPassword;
     private EditText etConfirmPassword;
+    private TextView tvLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class Register extends AppCompatActivity {
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
+        tvLogin = findViewById(R.id.linkLogin);
 
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +64,14 @@ public class Register extends AppCompatActivity {
                 intent.putExtra("KEY_PASSWORD", password);
 
                 Toast.makeText(Register.this, "Create account successfully!", Toast.LENGTH_SHORT).show();
+                startActivity(intent);
+            }
+        });
+
+        tvLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Register.this, Login.class);
                 startActivity(intent);
             }
         });

@@ -20,14 +20,16 @@ import com.bumptech.glide.Glide;
 public class Profile extends AppCompatActivity {
     private final String DEFAULT_AVATAR = "https://friconix.com/png/fi-cnsuxx-user-circle.png";
     private TextView tvUserName;
-
     private ImageView imageView;
-    private EditText etUrl;
     private Button btnSave;
     private Button btnLogout;
     private Button btnHome;
     private EditText etName;
     private EditText etEmail;
+    private EditText etUrl;
+
+    private EditText etAddress;
+    private EditText etDescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +46,14 @@ public class Profile extends AppCompatActivity {
 
         tvUserName = findViewById(R.id.tvUserName);
         imageView = findViewById(R.id.imgUser);
-        etUrl = findViewById(R.id.etAvatarURL);
         btnSave = findViewById(R.id.btnSave);
         btnLogout = findViewById(R.id.btnLogout);
         btnHome = findViewById(R.id.btnHome);
         etName = findViewById(R.id.etName);
         etEmail = findViewById(R.id.etEmail);
+        etUrl = findViewById(R.id.etAvatarURL);
+        etAddress = findViewById(R.id.etAddress);
+        etDescription = findViewById(R.id.etDescription);
 
         String userName = loginIntent.getStringExtra("KEY_NAME");
         String userEmail = loginIntent.getStringExtra("KEY_EMAIL");
@@ -83,8 +87,11 @@ public class Profile extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Profile.this, Home.class);
                 intent.putExtra("KEY_NAME", userName);
+                intent.putExtra("KEY_EMAIL", userEmail);
                 String url = etUrl.getText().toString().trim().isEmpty() ? DEFAULT_AVATAR : etUrl.getText().toString().trim();
-                intent.putExtra("KEY_AVATAR_URL",url);
+                intent.putExtra("KEY_AVATAR_URL", url);
+                intent.putExtra("KEY_ADDRESS", etAddress.getText().toString().trim());
+                intent.putExtra("KEY_DESCRIPTION", etDescription.getText().toString().trim());
                 startActivity(intent);
             }
         });
