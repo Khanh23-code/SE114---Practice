@@ -32,6 +32,7 @@ public class Home extends AppCompatActivity {
 
     private String userName;
     private String avatarUrl;
+    private String userEmail;
 
     private boolean isSortedByDateAscending = false;
     private boolean isSortedByAuthorAscending = false;
@@ -64,7 +65,7 @@ public class Home extends AppCompatActivity {
         registerForContextMenu(lvPosts);
 
         assert profileIntent != null;
-        String userEmail = profileIntent.getStringExtra("KEY_EMAIL");
+        userEmail = profileIntent.getStringExtra("KEY_EMAIL");
 
         for (User u : Login.userList) {
             if (u.getEmail().equals(userEmail)) {
@@ -118,6 +119,7 @@ public class Home extends AppCompatActivity {
 
             intent.putExtra("KEY_NAME", userName);
             intent.putExtra("KEY_AVATAR_URL", avatarUrl);
+            intent.putExtra("KEY_EMAIL", userEmail);
 
             startActivity(intent);
             return true;
@@ -172,14 +174,18 @@ public class Home extends AppCompatActivity {
 
             return true;
         } else if (id == R.id.friendSuggestion) {
-            Intent intent = new Intent(Home.this, FriendSuggestion.class);
-            intent.putExtra("CURRENT_USER_EMAIL", currentUser.getEmail());
-            startActivity(intent);
+            if (currentUser != null) {
+                Intent intent = new Intent(Home.this, FriendSuggestion.class);
+                intent.putExtra("CURRENT_USER_EMAIL", currentUser.getEmail());
+                startActivity(intent);
+            }
             return true;
         } else if (id == R.id.invitations) {
-            Intent intent = new Intent(Home.this, Invitation.class);
-            intent.putExtra("CURRENT_USER_EMAIL", currentUser.getEmail());
-            startActivity(intent);
+            if (currentUser != null) {
+                Intent intent = new Intent(Home.this, FriendInvitation.class);
+                intent.putExtra("CURRENT_USER_EMAIL", currentUser.getEmail());
+                startActivity(intent);
+            }
             return true;
         }
 

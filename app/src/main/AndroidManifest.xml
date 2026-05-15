@@ -19,10 +19,16 @@
             android:exported="false" />
         <activity
             android:name=".Profile"
-            android:exported="false"></activity>
+            android:exported="false"/>
         <activity
             android:name=".Home"
-            android:exported="false"></activity>
+            android:exported="false"/>
+        <activity
+            android:name=".FriendSuggestion"
+            android:exported="false"/>
+        <activity
+            android:name=".FriendInvitation"
+            android:exported="false"/>
         <activity
             android:name=".Login"
             android:exported="false" />

@@ -1,13 +1,11 @@
-package com.example.myapplication.Model;
+package com.example.myapplication;
 
 import android.os.Bundle;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myapplication.InvitationAdapter;
-import com.example.myapplication.Login;
-import com.example.myapplication.R;
+import com.example.myapplication.Model.User;
 import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.ArrayList;

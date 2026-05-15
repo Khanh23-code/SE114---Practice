@@ -59,6 +59,17 @@ public class Profile extends AppCompatActivity {
 
         String userName = loginIntent.getStringExtra("KEY_NAME");
         String userEmail = loginIntent.getStringExtra("KEY_EMAIL");
+
+        if (userEmail != null) {
+            for (User u : Login.userList) {
+                if (u.getEmail().equals(userEmail)) {
+                    etPhone.setText(u.getPhoneNumber());
+                    if (u.getAvatarUrl() != null) loadAvatar(u.getAvatarUrl());
+                    break;
+                }
+            }
+        }
+
         tvUserName.setText(userName);
         etName.setText(userName);
         etEmail.setText(userEmail);
