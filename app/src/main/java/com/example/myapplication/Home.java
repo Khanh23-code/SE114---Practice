@@ -176,6 +176,11 @@ public class Home extends AppCompatActivity {
             intent.putExtra("CURRENT_USER_EMAIL", currentUser.getEmail());
             startActivity(intent);
             return true;
+        } else if (id == R.id.invitations) {
+            Intent intent = new Intent(Home.this, Invitation.class);
+            intent.putExtra("CURRENT_USER_EMAIL", currentUser.getEmail());
+            startActivity(intent);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

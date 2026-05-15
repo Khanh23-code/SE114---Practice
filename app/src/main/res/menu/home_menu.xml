@@ -6,6 +6,9 @@
         android:id="@+id/friendSuggestion"
         android:title="Friend Suggestion"/>
     <item
+        android:id="@+id/invitations"
+        android:title="Invitations"/>
+    <item
         android:id="@+id/profile"
         android:title="Profile" />
     <item
