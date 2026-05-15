@@ -171,6 +171,11 @@ public class Home extends AppCompatActivity {
             postAdapter.notifyDataSetChanged();
 
             return true;
+        } else if (id == R.id.friendSuggestion) {
+            Intent intent = new Intent(Home.this, FriendSuggestion.class);
+            intent.putExtra("CURRENT_USER_EMAIL", currentUser.getEmail());
+            startActivity(intent);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
