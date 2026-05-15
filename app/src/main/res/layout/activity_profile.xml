@@ -77,13 +77,29 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutPhone"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Phone Number"
+                app:layout_constraintTop_toBottomOf="@id/layoutEmail">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layoutAddress"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="Address"
-                app:layout_constraintTop_toBottomOf="@id/layoutEmail">
+                app:layout_constraintTop_toBottomOf="@id/layoutPhone">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etAddress"

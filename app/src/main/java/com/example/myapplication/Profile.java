@@ -16,6 +16,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.bumptech.glide.Glide;
+import com.example.myapplication.Model.User;
 
 public class Profile extends AppCompatActivity {
     private final String DEFAULT_AVATAR = "https://friconix.com/png/fi-cnsuxx-user-circle.png";
@@ -26,8 +27,8 @@ public class Profile extends AppCompatActivity {
     private Button btnHome;
     private EditText etName;
     private EditText etEmail;
+    private EditText etPhone;
     private EditText etUrl;
-
     private EditText etAddress;
     private EditText etDescription;
 
@@ -51,6 +52,7 @@ public class Profile extends AppCompatActivity {
         btnHome = findViewById(R.id.btnHome);
         etName = findViewById(R.id.etName);
         etEmail = findViewById(R.id.etEmail);
+        etPhone = findViewById(R.id.etPhone);
         etUrl = findViewById(R.id.etAvatarURL);
         etAddress = findViewById(R.id.etAddress);
         etDescription = findViewById(R.id.etDescription);
@@ -67,10 +69,24 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String inputUrl = etUrl.getText().toString().trim();
+                String newName = etName.getText().toString().trim();
+                String newPhone = etPhone.getText().toString().trim();
+
                 if (!inputUrl.isEmpty()) {
                     loadAvatar(inputUrl);
-                    Toast.makeText(Profile.this, "Updating user avatar...", Toast.LENGTH_SHORT).show();
                 }
+
+                for (User u : Login.userList) {
+                    if (u.getEmail().equals(userEmail)) {
+                        if (!newName.isEmpty()) u.setName(newName);
+                        if (!newPhone.isEmpty()) u.setPhoneNumber(newPhone);
+                        if (!inputUrl.isEmpty()) u.setAvatarUrl(inputUrl);
+
+                        break;
+                    }
+                }
+
+                Toast.makeText(Profile.this, "Profile updated successfully!", Toast.LENGTH_SHORT).show();
             }
         });
 

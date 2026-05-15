@@ -20,6 +20,7 @@ public class Register extends AppCompatActivity {
 
     private EditText etName;
     private EditText etEmail;
+    private EditText etPhone;
     private EditText etPassword;
     private EditText etConfirmPassword;
 
@@ -37,6 +38,7 @@ public class Register extends AppCompatActivity {
         Button btnCreate = findViewById(R.id.btnCreate);
         etName = findViewById(R.id.etName);
         etEmail = findViewById(R.id.etEmail);
+        etPhone = findViewById(R.id.etPhone);
         etPassword = findViewById(R.id.etPassword);
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
         TextView tvLogin = findViewById(R.id.linkLogin);
@@ -46,10 +48,11 @@ public class Register extends AppCompatActivity {
             public void onClick(View v) {
                 String name = etName.getText().toString().trim();
                 String email = etEmail.getText().toString().trim();
+                String phone = etPhone.getText().toString().trim();
                 String password = etPassword.getText().toString().trim();
                 String confirmPassword = etConfirmPassword.getText().toString().trim();
 
-                if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+                if (name.isEmpty() || email.isEmpty() || phone.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                     Toast.makeText(Register.this,"Please fill all information!", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -58,7 +61,7 @@ public class Register extends AppCompatActivity {
                     return;
                 }
 
-                User newUser = new User(name, email, password);
+                User newUser = new User(name, email, password, phone);
                 Login.userList.add(newUser);
 
                 Toast.makeText(Register.this, "Create account successfully!", Toast.LENGTH_SHORT).show();
